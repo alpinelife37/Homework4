@@ -1,1 +1,1 @@
-This is a basic Java Script code quiz with an unrelated bonus question. The quiz starts when the user clicks on the stat quiz button. The user has 10 seconds to answer before is will automatically move to the next question. The users score is displayed at the end of the quiz as a percent.
+This is a basic Java Script code quiz with an unrelated bonus question. The quiz starts when the user clicks on the start quiz button. The user has 10 seconds to answer before is will automatically move to the next question. The users score is displayed at the end of the quiz as a percent.
