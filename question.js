@@ -1,4 +1,8 @@
+const username = prompt(
+  "                                      Enter your name!!!"
+);
 const start = document.getElementById("start");
+const highScores = document.getElementById("highScores");
 const quiz = document.getElementById("quiz");
 const question = document.getElementById("question");
 const qImg = document.getElementById("qImg");
@@ -83,8 +87,15 @@ function renderQuestion() {
 
 start.addEventListener("click", startQuiz);
 
+// highScores.addEventListener("click", highScores);
+
+// function highScores() {
+//   highScores.style.display = "none";
+// }
+
 function startQuiz() {
   start.style.display = "none";
+  // highScores.style.display = "none";
   renderQuestion();
   quiz.style.display = "block";
   renderProgress();
