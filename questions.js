@@ -1,48 +1,62 @@
 const question = document.getElementById("question");
 const choices = Array.from(document.getElementsByClassName("choice-text"));
-//const progressText = document.getElementById("progressText");
 const scoreText = document.getElementById("score");
-//const progressBarFull = document.getElementById("progressBarFull");
 let currentQuestion = {};
-let acceptingAnswers = false;
+let acceptingAnswers = false; //////////////////////
 let score = 0;
 let questionCounter = 0;
 let availableQuesions = [];
 
 let questions = [
   {
-    question: "Inside which HTML element do we put the JavaScript??",
-    choice1: "<script>",
-    choice2: "<javascript>",
-    choice3: "<js>",
-    choice4: "<scripting>",
+    question: "What year was Java Script created?",
+    choice1: "1995",
+    choice2: "2001",
+    choice3: "1988",
+    choice4: "2008",
     answer: 1
   },
   {
     question:
-      "What is the correct syntax for referring to an external script called 'xxx.js'?",
-    choice1: "<script href='xxx.js'>",
-    choice2: "<script name='xxx.js'>",
-    choice3: "<script src='xxx.js'>",
-    choice4: "<script file='xxx.js'>",
-    answer: 3
+      "What element continues to execute a block of code as long as it remains true?",
+    choice1: "Clone",
+    choice2: "Loop",
+    choice3: "Repeater",
+    choice4: "Continue",
+    answer: 2
   },
   {
-    question: " How do you write 'Hello World' in an alert box?",
-    choice1: "msgBox('Hello World');",
-    choice2: "alertBox('Hello World');",
-    choice3: "msg('Hello World');",
-    choice4: "alert('Hello World');",
-    answer: 4
+    question: "Which function removes the last element in an array?",
+    choice1: "pop()",
+    choice2: "push()",
+    choice3: "join()",
+    choice4: "delete()",
+    answer: 1
+  },
+  {
+    question: "Which following function sorts the elements in an array?",
+    choice1: "toSource()",
+    choice2: "toString()",
+    choice3: "sort()",
+    choice4: "arrange()",
+    answer: 2
+  },
+  {
+    question: "Who created Java Script",
+    choice1: "Bill Gates",
+    choice2: "Brendan Eich",
+    choice3: "James Gosling",
+    choice4: "Donald Trump",
+    answer: 2
   }
 ];
 
 //CONSTANTS
-const CORRECT_BONUS = 10;
-const MAX_QUESTIONS = 3;
+const INCORRECT_PENALITY = -10; /////////////////////////////////////////////////////////////////////////////////////////
+const MAX_QUESTIONS = 5;
 
 startGame = () => {
-  // questionCounter = 0;
+  questionCounter = 0;
   score = 0;
   availableQuesions = [...questions];
   getNewQuestion();
@@ -51,6 +65,11 @@ startGame = () => {
 getNewQuestion = () => {
   if (availableQuesions.length === 0 || questionCounter >= MAX_QUESTIONS) {
     localStorage.setItem("mostRecentScore", score);
+    // grab time left
+    if (myTimer.length === 0 || questionCounter >= MAX_QUESTIONS) {
+      localStorage.setItem("timeLeft", sec); /////////////////////////////////////
+      console.log(localStorage);
+    }
     //go to the end page
     return window.location.assign("./end.html");
   }
@@ -65,22 +84,23 @@ getNewQuestion = () => {
   });
 
   availableQuesions.splice(questionIndex, 1);
-  acceptingAnswers = true;
+  acceptingAnswers = false; ////////////////////////////////////////////////
 };
 
 choices.forEach(choice => {
   choice.addEventListener("click", e => {
-    if (!acceptingAnswers) return;
+    if (acceptingAnswers) return; /////////////////////////////////////////
 
-    acceptingAnswers = false;
+    acceptingAnswers = false; /////////////////////////////////////////////////////////
     const selectedChoice = e.target;
     const selectedAnswer = selectedChoice.dataset["number"];
 
     const classToApply =
       selectedAnswer == currentQuestion.answer ? "correct" : "incorrect";
 
-    if (classToApply === "correct") {
-      incrementScore(CORRECT_BONUS);
+    if (classToApply === "incorrect") {
+      ////////////////////////////////////////////////
+      decrementScore(INCORRECT_PENALITY);
     }
 
     selectedChoice.parentElement.classList.add(classToApply);
@@ -92,13 +112,14 @@ choices.forEach(choice => {
   });
 });
 
-incrementScore = num => {
+decrementScore = num => {
+  ////////////////////////////////////////////////   last
   score += num;
   scoreText.innerText = score;
 };
 
 startGame();
-var sec = 30;
+var sec = 50;
 var time = setInterval(myTimer, 1000);
 
 function myTimer() {
